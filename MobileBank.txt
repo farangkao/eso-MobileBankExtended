@@ -1,0 +1,27 @@
+## Title: MobileBank Extended
+## APIVersion: 100004
+## SavedVariables: MB_SavedVars
+## Description: Shows Inventory (other Characters) or Bank or Guild Bank Contents (Last time you checked them). Bind Keys or use /mb on the command prompt.
+## OptionalDependsOn: LibAddonMenu-2.0
+
+Libs\LibStub.lua
+Libs\LibAddonMenu-2.0\LibAddonMenu-2.0.lua
+Libs\LibAddonMenu-2.0\controls\panel.lua
+Libs\LibAddonMenu-2.0\controls\submenu.lua
+Libs\LibAddonMenu-2.0\controls\button.lua
+Libs\LibAddonMenu-2.0\controls\checkbox.lua
+Libs\LibAddonMenu-2.0\controls\colorpicker.lua
+Libs\LibAddonMenu-2.0\controls\custom.lua
+Libs\LibAddonMenu-2.0\controls\description.lua
+Libs\LibAddonMenu-2.0\controls\dropdown.lua
+Libs\LibAddonMenu-2.0\controls\editbox.lua
+Libs\LibAddonMenu-2.0\controls\header.lua
+Libs\LibAddonMenu-2.0\controls\slider.lua
+Libs\LibAddonMenu-2.0\controls\texture.lua
+
+
+MobileBank.lua
+MobileBank.xml
+MobileBankOptions.lua
+Bindings/bindings.xml
+Bindings/Bindings.lua

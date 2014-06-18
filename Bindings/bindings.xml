@@ -1,0 +1,15 @@
+<Bindings>
+  <Layer name="SI_KEYBINDINGS_LAYER_GENERAL">
+    <Category name="Mobile Bank Extended">
+      <Action name="MB_P">
+        <Down>MB.commandHandler("p")</Down>
+      </Action>
+	   <Action name="MB_I">
+        <Down>MB.commandHandler("i")</Down>
+      </Action>
+      <Action name="MB_G">
+        <Down>MB.commandHandler("g")</Down>
+      </Action>
+    </Category>
+  </Layer>
+</Bindings>
