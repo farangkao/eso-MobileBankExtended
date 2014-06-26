@@ -1,5 +1,5 @@
 ## Title: MobileBank Extended
-## APIVersion: 100004
+## APIVersion: 100007
 ## SavedVariables: MB_SavedVars
 ## Description: Shows Inventory (other Characters) or Bank or Guild Bank Contents (Last time you checked them). Bind Keys or use /mb on the command prompt.
 ## OptionalDependsOn: LibAddonMenu-2.0
@@ -19,7 +19,7 @@ Libs\LibAddonMenu-2.0\controls\header.lua
 Libs\LibAddonMenu-2.0\controls\slider.lua
 Libs\LibAddonMenu-2.0\controls\texture.lua
 
-
+MobileBankHelpers.lua
 MobileBank.lua
 MobileBank.xml
 MobileBankOptions.lua
