@@ -1,12 +1,15 @@
 <Bindings>
   <Layer name="SI_KEYBINDINGS_LAYER_GENERAL">
     <Category name="|c00AAFFMobile Bank |cAADDFFExtended|r">
+<<<<<<< HEAD
       <Action name="MB_TOGGLE">
         <Down>MB.commandHandler("toggle")</Down>        
       </Action>
       <Action name="MB_TOGGLE_INV">
         <Down>MB.commandHandler("toggle inv")</Down>        
       </Action>
+=======
+>>>>>>> origin/master
       <Action name="MB_A">
         <Down>MB.commandHandler("a")</Down>
       </Action>

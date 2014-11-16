@@ -11,7 +11,11 @@
 }	]]
 
 
+<<<<<<< HEAD
 local widgetVersion = 8
+=======
+local widgetVersion = 5
+>>>>>>> origin/master
 local LAM = LibStub("LibAddonMenu-2.0")
 if not LAM:RegisterWidget("panel", widgetVersion) then return end
 

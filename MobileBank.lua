@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 --	MobileBank Extended v1.4g
+=======
+--	MobileBank Extended v1.2
+>>>>>>> origin/master
 ----------------------------
 --  @farangkao
 ----------------------------
@@ -18,6 +22,7 @@ if ESOAddonDev then
       WINDOW_MANAGER:CreateControl("MBUI_Row"..i.."SellPrice",MBUI,CT_CONTROL)
       
     end
+<<<<<<< HEAD
     for i=1,8 do
       _G["MBUI_ContainerTitleInventButton" .. i] = {
         SetNormalFontColor = function() end,
@@ -32,6 +37,9 @@ if ESOAddonDev then
         }
     end
         
+=======
+    
+>>>>>>> origin/master
     MBUI_ContainerTitleSwitchAll.SetState = function (self,state) end
     MBUI_ContainerTitleSwitchInv.SetState = function (self,state) end
     MBUI_ContainerTitleSwitchBank.SetState = function (self,state) end
@@ -39,6 +47,7 @@ if ESOAddonDev then
     MBUI_ContainerTitleSwitchRecipes.SetState = function (self,state) end
     MBUI_ContainerTitleSwitchLoot.SetState = function (self,state) end
     MBUI_ContainerTitleName.SetState = function (self,state) end
+<<<<<<< HEAD
     MBUI_ContainerTitleToggleEquipped.SetState = function(self,state) end
     ZO_CurrencyControl_FormatCurrency = function (test) return "currency" end
     MBUI_ContainerTitleFilterAll.SetState = function(self,state) end
@@ -46,6 +55,9 @@ if ESOAddonDev then
     
     ItemTooltip = {}
     ItemTooltip.SetBagItem = 0
+=======
+    ZO_CurrencyControl_FormatCurrency = function (test) return "currency" end
+>>>>>>> origin/master
 end
 --------------------------------
 
@@ -53,7 +65,11 @@ local LAM = {}
 
 MB = {}
 
+<<<<<<< HEAD
 MB.version="1.4g"
+=======
+MB.version="1.2"
+>>>>>>> origin/master
 
 MB.dataDefaultItems = {
 	Guilds={},
@@ -90,7 +106,12 @@ MB.UI_Movable=false
 MB.AddonReady=false
 MB.TempData={}
 MB.GCountOnUpdateTimer=0
+<<<<<<< HEAD
 MB.Debug=false
+=======
+MB.GuildBankIdToPrepare=1
+MB.Debug=true
+>>>>>>> origin/master
 MB.PreviousButtonClicked=nil
 MB.LastButtonClicked=nil
 MB.CharsName=nil
@@ -106,7 +127,10 @@ MB.Label="Bank"
 MB.SearchText=""
 MB.Loot = {}
 MB.thisCharName=GetUnitName("player")
+<<<<<<< HEAD
 MB.thisAcocuntName=GetDisplayName()
+=======
+>>>>>>> origin/master
 MB.CurrentChar=MB.thisCharName
 
 local function debug(text)
@@ -132,7 +156,10 @@ function MB.OnLoad(eventCode, addOnName)
 	-- Registering Events 
 
 	EVENT_MANAGER:RegisterForEvent("MobileBank", EVENT_LOOT_RECEIVED, MB.LootRecieved)
+<<<<<<< HEAD
   EVENT_MANAGER:RegisterForEvent("MobileBank", EVENT_INVENTORY_SINGLE_SLOT_UPDATE, MB.SingleSlotUpdate)
+=======
+>>>>>>> origin/master
 	EVENT_MANAGER:RegisterForEvent("MobileBank", EVENT_CLOSE_BANK, MB.SavePlayerInvent)
 	EVENT_MANAGER:RegisterForEvent("MobileBank", EVENT_CLOSE_STORE,  MB.SavePlayerInvent)
 	EVENT_MANAGER:RegisterForEvent("MobileBank", EVENT_MONEY_UPDATE , MB.SavePlayerInvent)
@@ -143,6 +170,7 @@ function MB.OnLoad(eventCode, addOnName)
 	--Загрузка сохраненных переменных
 	MB.items= ZO_SavedVars:NewAccountWide( "MB_SavedVars" , 3, "Items" , MB.dataDefaultItems, nil )
 	-- New for Gold Tracking
+<<<<<<< HEAD
 	MB.gold = ZO_SavedVars:NewAccountWide( "MB_SavedVars", 3, "Gold", MB.dataDefaultItems, nil )
 	-- New for Aliases
 	MB.aliases = ZO_SavedVars:NewAccountWide( "MB_SavedVars", 3,"Aliases", MB.dataDefaultItems,nil)
@@ -150,10 +178,19 @@ function MB.OnLoad(eventCode, addOnName)
 	MB.params= ZO_SavedVars:New( "MB_SavedVars" , 3, "Params" , MB.dataDefaultParams, nil )
 	MB.global= ZO_SavedVars:NewAccountWide( "MB_SavedVars", 3, "Global" , MB.dataDefaultGlobal, nil )
   
+=======
+	MB.gold = ZO_SavedVars:NewAccountWide("MB_SavedVars", 3, "Gold", MB.dataDefaultItems, nil )
+	-- New for Aliases
+	MB.aliases = ZO_SavedVars:NewAccountWide("MB_SavedVars", 3,"Aliases", MB.dataDefaultItems,nil)
+	
+	MB.params= ZO_SavedVars:New( "MB_SavedVars" , 3, "Params" , MB.dataDefaultParams, nil )
+	
+>>>>>>> origin/master
   debug("Item Version: " .. tostring(MB.items.version))
   
   debug("API Version: " .. tostring(APIVersion))
   
+<<<<<<< HEAD
   if not MB.thisAccountName or MB.thisAccountName == "" then
     if GetNumGuilds() > 0 then        
       MB.thisAccountName, _, _, _, _ =  GetGuildMemberInfo(GetGuildId(1),GetPlayerGuildMemberIndex(GetGuildId(1)))      
@@ -166,6 +203,8 @@ function MB.OnLoad(eventCode, addOnName)
     MB.global.SelectedAccount = MB.thisAccountName
   end
   
+=======
+>>>>>>> origin/master
   MBUI_ContainerTitleName:SetState(1)
 
 	MB.items.Chars[MB.thisCharName]={}
@@ -199,8 +238,12 @@ function MB.OnLoad(eventCode, addOnName)
 
 		MB.aliases.Chars[MB.thisCharName]={ 
 			ID= maxid,
+<<<<<<< HEAD
 			Alias = MB.thisCharName,
       Account = MB.thisAccountName
+=======
+			Alias = MB.thisCharName
+>>>>>>> origin/master
 		}
 	end
   
@@ -259,6 +302,7 @@ function MB.OnLoad(eventCode, addOnName)
     -- Add Settings menu via LibAddonMenu
 	
 	MB.options.SetData()
+<<<<<<< HEAD
   MB.HookTooltips()
   
   LAM = LibStub("LibAddonMenu-2.0")
@@ -271,6 +315,13 @@ function MB.OnLoad(eventCode, addOnName)
   end
   MBUI_ContainerTitleFilterAll:SetState(1)
   MBUI_ContainerTitleFilterSubFilter1:SetState(1)  
+=======
+	
+  LAM = LibStub("LibAddonMenu-2.0")
+	MB.OptionsPanel = LAM:RegisterAddonPanel("MobileBankExtended", MB.options.panelData)
+	LAM:RegisterOptionControls("MobileBankExtended", MB.options.optionsTable)
+	
+>>>>>>> origin/master
 	MB.AddonReady=true
 end
 
@@ -627,6 +678,58 @@ function MB.UpdateBankAliases()
 						end
 				end
 											
+<<<<<<< HEAD
+=======
+				_G["MBUI_ContainerTitleInventButton"..k]:SetText("["..charname.."]")				
+			end
+		end
+	end
+  
+  -- Update Guilds
+  
+  orderTable = {}
+	maxorder = 0
+	for i=1, #MB.GuildsName do		
+		local order = 0
+		if MB.aliases and MB.aliases.Guilds then
+			for k,v in pairs(MB.aliases.Guilds) do
+				if k == MB.GuildsName[i] then
+					if v.Order then
+						order = v.Order
+					else
+						order = v.ID
+					end
+				end
+			end		
+		end
+		if order> maxorder then maxorder = order end
+		orderTable[i] = order		
+	end
+	
+	-- Set all 0 to the next higher number
+	for i=1,#orderTable do
+		if orderTable[i]  == 0 then 
+			maxorder = maxorder + 1
+			orderTable[i] = maxorder
+		end
+	end
+	
+	
+  for i=1,#MB.GuildsName do
+
+		for k=1,#orderTable do
+			if orderTable[k] == i then
+			
+				local guildname=tostring(MB.GuildsName[k])			
+				-- Support for Alias Names
+				if MB.aliases.Chars[charname] then
+						local alias = MB.aliases.Guilds[guildname].Alias
+						if alias ~= "" then
+							guildname = alias
+						end
+				end
+											
+>>>>>>> origin/master
 				_G["MBUI_ContainerTitleGuildButton"..k]:SetText("["..guildname.."]")				
 			end
 		end
@@ -716,7 +819,10 @@ function MB.CreateBank()
   MB.ChangeCharacterDisplay(true)  -- Create Characters for Inventory
   
     -- Создаем кнопки для переключения между Игроками
+<<<<<<< HEAD
     --[[
+=======
+>>>>>>> origin/master
 	nextXstep=0
 	orderTable = {}
 	maxorder = 0
@@ -754,6 +860,7 @@ function MB.CreateBank()
 		for k=1,#orderTable do
 			if orderTable[k] == i then
 			
+<<<<<<< HEAD
         if k < 9 then
           local charname=tostring(MB.CharsName[k])			
           -- Support for Alias Names
@@ -783,6 +890,35 @@ function MB.CreateBank()
             end)
         end
       end
+=======
+				local charname=tostring(MB.CharsName[k])			
+				-- Support for Alias Names
+				if MB.aliases.Chars[charname] then
+						local alias = MB.aliases.Chars[charname].Alias
+						if alias ~= "" then
+							charname = alias
+						end
+				end
+				
+				WINDOW_MANAGER:CreateControl("MBUI_ContainerTitleInventButton"..k,MBUI_ContainerTitle,CT_BUTTON)
+				_G["MBUI_ContainerTitleInventButton"..k]:SetParent(MBUI_ContainerTitleInventButtons)
+				_G["MBUI_ContainerTitleInventButton"..k]:SetFont("ZoFontGame" )
+				nextXstep=(MBUI_Container:GetWidth()/#MB.CharsName*i)
+				_G["MBUI_ContainerTitleInventButton"..k]:SetDimensions(MBUI_Container:GetWidth()/#MB.CharsName,20)
+				-- Делаем поправку на ширину самой кнопки
+        _G["MBUI_ContainerTitleInventButton"..k]:SetText("["..charname.."]")
+				_G["MBUI_ContainerTitleInventButton"..k]:SetAnchor(TOP,MBUI_ContainerTitleInventButtons,TOPLEFT,nextXstep-_G["MBUI_ContainerTitleInventButton"..k]:GetWidth()/2,0)				
+				_G["MBUI_ContainerTitleInventButton"..k]:SetNormalFontColor(0,255,255,.7)
+				_G["MBUI_ContainerTitleInventButton"..k]:SetMouseOverFontColor(0.8,0.4,0,1)
+
+				_G["MBUI_ContainerTitleInventButton"..k]:SetHandler( "OnClicked" , function(self)
+					MB.PrepareBankValues("Invent",k)
+					MB.SortPreparedValues()
+					-- MB.FillBank(11,MB.BankValueTable)
+					MB.FilterBank(11,MB.CurrentFilterType,MB.SearchText)	
+					end)
+			end
+>>>>>>> origin/master
 		end
 	end
   --]]
@@ -804,8 +940,14 @@ function MB.CreateBank()
 end
 
 function MB.PrepareBankValues(PrepareType,IdToPrepare)
+<<<<<<< HEAD
   MB.Label = PrepareType	
 	MB.BankValueTable={}  
+=======
+  MB.Label = PrepareType
+	MB.GuildBankIdToPrepare=GuildBankIdToPrepare
+	MB.BankValueTable={}
+>>>>>>> origin/master
 
   MBUI_ContainerTitleFilter:SetHidden(false)
   MBUI_ContainerTitleSwitchAll:SetState(0)
@@ -814,9 +956,12 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
   MBUI_ContainerTitleSwitchGuild:SetState(0)
   MBUI_ContainerTitleSwitchRecipes:SetState(0)
   MBUI_ContainerTitleSwitchLoot:SetState(0)
+<<<<<<< HEAD
   MBUI_ContainerTitleToggleEquipped:SetHidden(true)
   
   local recipes = false
+=======
+>>>>>>> origin/master
   
 	if PrepareType=="Bank" then
 		debug("Preparing Player values")
@@ -833,9 +978,10 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
 
 				local stackCount = GetSlotStackSize(BAG_BANK,MB.ItemCounter)
 				local statValue = GetItemStatValue(BAG_BANK,MB.ItemCounter)
-				local icon, stack, sellPrice, meetsUsageRequirement, locked, equipType, itemStyle, quality = GetItemInfo(BAG_BANK,MB.ItemCounter)
+				local icon, stack, sellPrice, meetsUsageRequirement, locked, equipType, itemStyle, quality,level = GetItemInfo(BAG_BANK,MB.ItemCounter)
 				local ItemType=GetItemType(BAG_BANK,MB.ItemCounter)
 
+<<<<<<< HEAD
         local _, _, _, id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _,_ = ZO_LinkHandler_ParseLink(link)
         -- local id=tonumber(link:MB_splitone(":",3)) -- string.sub(link,start,finish))
       
@@ -846,13 +992,25 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
             if not statValue then
               statValue = 1
             end
+=======
+        local id=tonumber(link:MB_splitone(":",3)) -- string.sub(link,start,finish))
+      
+        -- local level = GetItemLevel(BAG_BANK,MB.ItemCounter)
+        
+        if statValue == 0 then
+            statValue = level
+>>>>>>> origin/master
         end
       
 				MB.BankValueTable[#MB.BankValueTable+1]={
 					["ItemLink"]=tostring(clearlink),
 					["icon"] = tostring(icon),
 					["ItemName"]=name, -- GetItemName(BAG_BANK, MB.ItemCounter), -- tostring(name),
+<<<<<<< HEAD
           ["Level"] = tonumber(level),
+=======
+          ["Level"] = level,
+>>>>>>> origin/master
 					["stackCount"]=stackCount,
 					["statValue"]=statValue,
 					["sellPrice"] = sellPrice,
@@ -880,6 +1038,7 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
     MBUI_ContainerTitleToggleEquipped:SetHidden(false)
 		debug("Preparing Inventory values")
     MBUI_ContainerTitleSwitchInv:SetState(1)
+<<<<<<< HEAD
     
 		-- local LoadingCharName=MB.CharsName[IdToPrepare]
     local LoadingCharName = "Unknown"
@@ -888,6 +1047,9 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
     else
       debug("Error inventButton: " .. tostring(IdToPrepare))
     end
+=======
+		local LoadingCharName=MB.CharsName[IdToPrepare]
+>>>>>>> origin/master
 
 		if LoadingCharName then
 			-- Change Color of Char Text-Buttons..
@@ -943,12 +1105,15 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
 		MBUI_ContainerTitleInventButtons:SetHidden(false)
 		MBUI_ContainerTitleGuildButtons:SetHidden(true)
 	elseif PrepareType=="Guild" then
+<<<<<<< HEAD
     
     if not IdToPrepare then
       IdToPrepare = MB.LastIdToPrepareGuild
     else
       MB.LastIdToPrepareGuild = IdToPrepare
     end
+=======
+>>>>>>> origin/master
     MBUI_ContainerTitleSwitchGuild:SetState(1)
 		bagIcon, bagSlots=GetBagInfo(BAG_GUILDBANK)
 		debug("Preparing Guild values")
@@ -975,6 +1140,7 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
 		MBUI_ContainerTitleInventButtons:SetHidden(true)
 		MBUI_ContainerTitleGuildButtons:SetHidden(false)
   elseif PrepareType == "All" then -- Show all Items (on Guild Banks ,Bank and Inventories) - except Recipes
+<<<<<<< HEAD
     MBUI_ContainerTitleToggleEquipped:SetHidden(false)
     MBUI_ContainerTitleSwitchAll:SetState(1)       
     MB.BankValueTable = {}
@@ -1023,6 +1189,12 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
       end
     end
       
+=======
+    
+    MBUI_ContainerTitleSwitchAll:SetState(1)       
+    MB.BankValueTable = {}
+    
+>>>>>>> origin/master
 		if #MB.GuildsName > 0 then 
       debug("We have guilds, so let's check them...")
       for i=1,#MB.GuildsName do
@@ -1054,6 +1226,7 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
 				local icon, stack, sellPrice, meetsUsageRequirement, locked, equipType, itemStyle, quality = GetItemInfo(BAG_BANK,MB.ItemCounter)
 				local ItemType=GetItemType(BAG_BANK,MB.ItemCounter)
 
+<<<<<<< HEAD
         -- local id = link:MB_splitone(":",3)
                       
         local level = GetItemLevel(BAG_BANK,MB.ItemCounter)
@@ -1067,6 +1240,16 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
             end
         end
         
+=======
+        local id = link:MB_splitone(":",3)
+                      
+        local level = GetItemLevel(BAG_BANK,MB.ItemCounter)
+      
+        if statValue == 0 then
+            statValue = level
+        end
+
+>>>>>>> origin/master
 				MB.BankValueTableBankOnly[#MB.BankValueTableBankOnly+1]={
 					["ItemLink"]=tostring(clearlink),
 					["icon"] = tostring(icon),
@@ -1085,7 +1268,15 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
     debug("BankOnly: " .. tostring(#MB.BankValueTableBankOnly))
     MB.BankValueTable = MB_Util:MergeTables(MB.BankValueTable,MB.BankValueTableBankOnly,"BeforeBankOnly")
           
+<<<<<<< HEAD
 
+=======
+		for i=1,#MB.CharsName do
+      debug("We have char : " ..MB.CharsName[i] .." ,so let's check")
+      MB.BankValueTable = MB_Util:MergeTables(MB.BankValueTable,MB.items.Chars[MB.CharsName[i]],"BeforeChars")
+		end
+				
+>>>>>>> origin/master
 		MB.BankValueTable.CurSlots=#MB.BankValueTable
 		MB.BankValueTable.MaxSlots=bagSlots
     
@@ -1093,7 +1284,10 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
 		MBUI_ContainerTitleGuildButtons:SetHidden(true)
         
   elseif PrepareType == "Recipes" then
+<<<<<<< HEAD
     recipes = true
+=======
+>>>>>>> origin/master
     MBUI_ContainerTitleSwitchRecipes:SetState(1)
     MBUI_ContainerTitleFilter:SetHidden(true)
     MB.ItemCounter=0
@@ -1113,7 +1307,11 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
                  PROVISIONER_SPECIAL_INGREDIENT_TYPE_SPICES 
                  --]]
             if known then
+<<<<<<< HEAD
                 local numCreatable = 9999
+=======
+                local numCreatable = 1000
+>>>>>>> origin/master
                 -- numCreatable = MB.CalculateHowManyCouldBeCreated(recipeListIndex, recipeIndex, numIngredients)
                                 
                 for i = 1, numIngredients do
@@ -1124,18 +1322,30 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
                     local itemName = zo_strformat(SI_TOOLTIP_ITEM_NAME, name)
                     
                     local num = MB.ToolTipSearch(itemName,true) 
+<<<<<<< HEAD
                     debug(itemName .. " x " .. num)
+=======
+                    -- debug(itemName .. " x " .. num)
+>>>>>>> origin/master
                     
                     if num == 0 then
                         numCreatable = 0
                     else
                         if numCreatable > num then
+<<<<<<< HEAD
                            numCreatable = num
+=======
+                          numCreatable = num
+>>>>>>> origin/master
                         end
                     end
                 end
                            
+<<<<<<< HEAD
                 if numCreatable == 9999 then
+=======
+                if numCreatable == 1000 then
+>>>>>>> origin/master
                   numCreatable = 0
                 end
                 
@@ -1150,10 +1360,15 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
                                 
 --                debug("clearname: " .. clearname)
       
+<<<<<<< HEAD
                 -- local id=tonumber(link:MB_splitone(":",3)) -- string.sub(link,start,finish))
                 -- local level = quality -- tonumber(link:MB_splitone(":",5))
                 
                 local _, _, _, id, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, _,_ = ZO_LinkHandler_ParseLink(link)
+=======
+                local id=tonumber(link:MB_splitone(":",3)) -- string.sub(link,start,finish))
+                local level = quality -- tonumber(link:MB_splitone(":",5))
+>>>>>>> origin/master
     
                 --add parse out the data using
                 local index = 1
@@ -1227,7 +1442,11 @@ function MB.PrepareBankValues(PrepareType,IdToPrepare)
   if PrepareType ~= "Loot" then
       MB.SortPreparedValues()
   end
+<<<<<<< HEAD
   MB.InitToolTipSearch(recipes)
+=======
+  
+>>>>>>> origin/master
 	return MB.BankValueTable
 end
 
@@ -1262,6 +1481,7 @@ function MB.FilterExit(self)
 	-- self.HighlightAnimation:PlayFromEnd()
 end
 
+<<<<<<< HEAD
 function MB.FilterClicked(self,filtertype)    
   MB.CurrentFilterType = filtertype --debug("filtertyp:" .. filtertype)
 --  if _G["MBUI_ContainerTitleFilter" .. filtertype] then
@@ -1282,6 +1502,15 @@ function MB.FilterClicked(self,filtertype)
     end
   end
   MBUI_ContainerTitleFilterSubFilter1:SetState(1)  
+=======
+function MB.FilterClicked(self,filtertype)  
+  debug("filtertyp:" .. filtertype)
+  if _G["MBUI_ContainerTitleFilter" .. filtertype] then
+    _G["MBUI_ContainerTitleFilter" .. filtertype]:SetState(1)
+  else
+    debug("Unknown Control: " .. "MBUI_ContainerTitleFilter" .. filtertype)
+  end
+>>>>>>> origin/master
 	MB.FilterBank(11,filtertype,MB.SearchText)
 	MBUI_ContainerSlider:SetValue(11)
 
@@ -1304,9 +1533,15 @@ end
 -- ["ITEMTYPE_TABARD"] = 15
 function MB.FilterBank(position,FilterType,SearchText)
 	local texture='/esoui/art/miscellaneous/scrollbox_elevator.dds'
+<<<<<<< HEAD
   MB.CurrentFilterType = FilterType
   debug("FilterBank: " .. FilterType .. " (" ..SearchText .. ") : " ..tostring(position))
     
+=======
+  
+  debug("FilterBank: " .. FilterType .. " (" ..SearchText .. ") : " ..tostring(position))
+  
+>>>>>>> origin/master
 	if not position then position=11 end
     if MB.BankValueTable then
 	
@@ -1395,6 +1630,7 @@ function MB.FilterBank(position,FilterType,SearchText)
 					if type(v)=="table" then
 						if v.ItemType==v1 then
 							-- debug(v.ItemName.." is "..tostring(FilterType))
+<<<<<<< HEAD
               local good = false
               -- debug("Subfilter: " ..tostring(subfilter))
               if subfilter then
@@ -1410,6 +1646,9 @@ function MB.FilterBank(position,FilterType,SearchText)
               end
               if good then
                 if(SearchText == "" or string.upper(v.ItemName):find(string.upper(SearchText)) ~= nil ) then
+=======
+							if(SearchText == "" or string.upper(v.ItemName):find(string.upper(SearchText)) ~= nil ) then
+>>>>>>> origin/master
 													MB.BankValueTableFiltered[#MB.BankValueTableFiltered+1]=v
                   end
 							end
@@ -1663,7 +1902,11 @@ function MB.FillBank(last,TableToFillFrom,TotalItems)
 		ItemTooltip:SetLink(TableToFillFrom[self.id].ItemLink)
 
 		-- Show Comparative Tooltips for Type Weapon or Armor
+<<<<<<< HEAD
 		if TableToFillFrom[self.id].ItemType==ITEMTYPE_WEAPON or TableToFillFrom[self.id].ItemType==ITEMTYPE_ARMOR then
+=======
+		if self.ItemType==ITEMTYPE_WEAPON or self.ItemType==ITEMTYPE_ARMOR then
+>>>>>>> origin/master
 			-- Броня в банке
       if not TableToFillFrom[self.id].Equipped then -- don't show equipped stuff
         ItemTooltip:ClearAnchors()
@@ -1682,6 +1925,7 @@ function MB.FillBank(last,TableToFillFrom,TotalItems)
       end
 		end
 		
+<<<<<<< HEAD
     ItemTooltip:AddVerticalPadding(10)
     
     --[[
@@ -1694,6 +1938,8 @@ function MB.FillBank(last,TableToFillFrom,TotalItems)
     end
     --]]
     
+=======
+>>>>>>> origin/master
     if self.ItemType == ITEMTYPE_RECIPE then
       if TableToFillFrom[self.id].RecipeListID then
         local recipeListIndex = TableToFillFrom[self.id].RecipeListID
@@ -1747,7 +1993,11 @@ function MB.FillBank(last,TableToFillFrom,TotalItems)
     end
     
    -- ItemTooltip:AddLine("??")
+<<<<<<< HEAD
      MB.ToolTipSearch(TableToFillFrom[self.id].ItemName)
+=======
+     -- local num = MB.ToolTipSearch(TableToFillFrom[self.id].ItemName)
+>>>>>>> origin/master
      -- debug(zo_strformat(SI_TOOLTIP_ITEM_NAME, TableToFillFrom[self.id].ItemName) .. " x " .. num)
     
       ItemTooltip:SetAlpha(1)
@@ -1756,7 +2006,84 @@ function MB.FillBank(last,TableToFillFrom,TotalItems)
 		-- self.IconTimeline=ANIMATION_MANAGER:CreateTimelineFromVirtual("MBUI_IconAnimation",_G[tostring(self:GetName().."ButtonIcon")])
 		-- self.IconTimeline:PlayFromStart()
 	end
+<<<<<<< HEAD
   
+=======
+
+  function MB.ToolTipSearch(search,onlyCount)    
+     local num = 0
+     for k2,v2 in pairs(MB.items.Chars) do              
+        local name = k2
+        if v2["CurSlots"] then
+          for i=1,v2["CurSlots"] do            
+            
+            if type(v2[i]) == "table" and v2[i].ItemName and zo_strformat(SI_TOOLTIP_ITEM_NAME, v2[i].ItemName):lower() == search:lower() then
+                num = num + v2[i].stackCount
+                if not onlyCount then
+                  local stat = ""
+                  local equipped = ""
+                  if v2[i].statValue > 0 then
+                    stat = " |c559999[" .. v2[i].statValue .. "]|r "
+                  end
+                  if v2[i].Equipped then
+                    equipped = " |c559999Equipped|r "
+                  end
+                  ItemTooltip:AddLine("|cAAFFFF " .. tostring(v2[i].stackCount) .. "x " .. MB_Util:GetAliasName(name) .."|r" .. stat .. equipped)
+                end             
+            end
+          end
+        end
+      end
+      -- My Bank Items
+      local _, bagSlots=GetBagInfo(BAG_BANK)
+      local cnt=0
+      while (cnt < bagSlots) do        
+        if GetItemName(BAG_BANK,cnt)~="" then				
+          local name = GetItemName(BAG_BANK, cnt) -- zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemName(BAG_BANK, cnt))
+          local _,stack,_,_,_,_,_,_ = GetItemInfo(BAG_BANK,cnt)
+          -- local link = GetItemLink(BAG_BANK,MB.ItemCounter)
+          local stackCount = GetSlotStackSize(BAG_BANK, cnt)
+          local statValue = GetItemStatValue(BAG_BANK,cnt)
+          if statValue == 0 then
+              statValue = GetItemLevel(BAG_BANK,cnt)
+          end
+          name = zo_strformat(SI_TOOLTIP_ITEM_NAME, name)
+          if name:lower() == search:lower() then
+              num = num + stackCount
+              if not onlyCount then
+                if statValue > 0 then                   
+                   ItemTooltip:AddLine("|cAAFFFF " .. tostring(stack) ..  " x Bank ".. "  |c559999[" .. statValue .. "]|r")
+                else
+                   ItemTooltip:AddLine("|cAAFFFF " .. tostring(stack) ..  " x Bank " .. "|r")                                          
+                end
+              end
+          end
+        end
+        cnt = cnt + 1         
+      end
+     -- Guilds Items
+     for k2,v2 in pairs(MB.items.Guilds) do              
+        local name = k2
+        if v2["CurSlots"] then
+          for i=1,v2["CurSlots"] do  
+            if type(v2[i]) == "table" and v2[i].ItemName and zo_strformat(SI_TOOLTIP_ITEM_NAME,v2[i].ItemName):lower() == search:lower() then
+                num = num + v2[i].stackCount
+                if not onlyCount then
+                  if v2[i].statValue > 0 then
+                    ItemTooltip:AddLine("|c3366DD " .. tostring(v2[i].stackCount) .. "x " .. name .. "  |c559999[" .. v2[i].statValue .. "]|r")
+                  else
+                    ItemTooltip:AddLine("|c3366DD " .. tostring(v2[i].stackCount) .. "x " .. name .. "|r")                          
+                  end
+                end
+            end
+          end
+        end
+      end
+      return num
+  end
+   
+
+>>>>>>> origin/master
 	function MB.TooltipExit(self)
 		ItemTooltip:ClearAnchors()
 		ItemTooltip:ClearLines()
@@ -1827,16 +2154,25 @@ function MB.FillBank(last,TableToFillFrom,TotalItems)
 
       _G["MBUI_Row"..i.."ButtonIcon"]:SetTexture(TableToFillFrom[i].icon)
 
+<<<<<<< HEAD
       if not meetsUsageRequirement then
+=======
+      if not TableToFillFrom[i].meetsUsageRequirement then
+>>>>>>> origin/master
         _G["MBUI_Row"..i.."ButtonIcon"]:SetColor(1,0,0,1)
       else
         _G["MBUI_Row"..i.."ButtonIcon"]:SetColor(1,1,1,1)
       end
 
       if TableToFillFrom[i].Equipped then
+<<<<<<< HEAD
         -- _G["MBUI_Row"..i.."ButtonEquipped"]:SetText("|t32:64:EsoUI/Art/Mounts/activemount_icon.dds:inheritColor|t")
          _G["MBUI_Row"..i.."ButtonEquipped"]:SetText("|t16:16:EsoUI/Art/Miscellaneous/locked_over.dds:inheritColor|t")
          -- debug("equipped: " .. TableToFillFrom[i].ItemLink)
+=======
+        _G["MBUI_Row"..i.."ButtonEquipped"]:SetText("|t32:64:EsoUI/Art/Mounts/activemount_icon.dds|t")
+        debug("equipped: " .. TableToFillFrom[i].ItemLink)
+>>>>>>> origin/master
       else
         _G["MBUI_Row"..i.."ButtonEquipped"]:SetText("")
       end
@@ -1878,16 +2214,26 @@ function MB.FillBank(last,TableToFillFrom,TotalItems)
 
         _G["MBUI_Row"..i.."ButtonIcon"]:SetTexture(item.icon)
 
+<<<<<<< HEAD
           if not meetsUsageRequirement then
+=======
+          if not item.meetsUsageRequirement then
+>>>>>>> origin/master
           _G["MBUI_Row"..i.."ButtonIcon"]:SetColor(1,0,0,1)
         else
           _G["MBUI_Row"..i.."ButtonIcon"]:SetColor(1,1,1,1)
         end
+<<<<<<< HEAD
         if item.Equipped then
         --  _G["MBUI_Row"..i.."ButtonEquipped"]:SetText("|t32:64:EsoUI/Art/Mounts/activemount_icon.dds:inheritColor|t")
           _G["MBUI_Row"..i.."ButtonEquipped"]:SetText("|t16:16:EsoUI/Art/Miscellaneous/locked_over.dds:inheritColor|t")
         
           -- debug("equipped: " .. TableToFillFrom[i].ItemLink)
+=======
+        if TableToFillFrom[i].Equipped then
+          _G["MBUI_Row"..i.."ButtonEquipped"]:SetText("|t32:64:EsoUI/Art/Mounts/activemount_icon.dds|t")
+          debug("equipped: " .. TableToFillFrom[i].ItemLink)
+>>>>>>> origin/master
         else
           _G["MBUI_Row"..i.."ButtonEquipped"]:SetText("")
         end
@@ -1940,12 +2286,21 @@ function MB.FillBank(last,TableToFillFrom,TotalItems)
 	  debug("current char: " .. MB.CurrentChar)
 		local goldTable = MB.gold.Chars[MB.CurrentChar]		
 		if goldTable then
+<<<<<<< HEAD
 --      debug("gold table found")
       if goldTable.Current then				   --  and MB.Label == "Invent" 
         goldtext = "  - |cFFFF00 " .. string.format("|u%d:%d:currency:%s|u", 0, 0, ZO_CurrencyControl_FormatCurrency(goldTable.Current))  .. " |r |cAAAA00/ " .. tostring(totalgold) .." Gold|r"
  --       debug("gold text: " .. goldtext )
 --      else
 --        debug("no gold info found")
+=======
+      debug("gold table found")
+      if goldTable.Current then				   --  and MB.Label == "Invent" 
+        goldtext = "  - |cFFFF00 " .. string.format("|u%d:%d:currency:%s|u", 0, 0, ZO_CurrencyControl_FormatCurrency(goldTable.Current))  .. " |r |cAAAA00/ " .. tostring(totalgold) .." Gold|r"
+        debug("gold text: " .. goldtext )
+      else
+        debug("no gold info found")
+>>>>>>> origin/master
       end
 		end
 	end
@@ -1995,6 +2350,7 @@ function MB.GB_Ready()
 	MB.gcount()
 end
 
+<<<<<<< HEAD
 function MB.SingleSlotUpdate(eventCode,bagId, slotId, isNewItem, itemSoundCategory, updateReason)
   
   -- EVENT_INVENTORY_SINGLE_SLOT_UPDATE (integer eventCode, integer bagId, integer slotId, bool isNewItem, integer itemSoundCategory, integer updateReason) 
@@ -2014,6 +2370,8 @@ function MB.SingleSlotUpdate(eventCode,bagId, slotId, isNewItem, itemSoundCatego
 end
 
 --[[
+=======
+>>>>>>> origin/master
 function MB.CalculateHowManyCouldBeCreated(recipeListIndex, recipeIndex, numIngredients)
   
     local minCount
@@ -2027,6 +2385,12 @@ function MB.CalculateHowManyCouldBeCreated(recipeListIndex, recipeIndex, numIngr
             return 0
         end
     end
+<<<<<<< HEAD
+=======
+
+    return minCount or 0
+end
+>>>>>>> origin/master
 
     return minCount or 0
 end
@@ -2046,11 +2410,14 @@ function MB.commandHandler( text )
     MB.Loot={}
 		MB.aliases.Chars={}
     MB.aliases.Guilds={}
+<<<<<<< HEAD
     MB.global.IgnoreGuild1 = false
     MB.global.IgnoreGuild2 = false
     MB.global.IgnoreGuild3 = false
     MB.global.IgnoreGuild4 = false
     MB.global.IgnoreGuild5 = false
+=======
+>>>>>>> origin/master
 		MB.params.MBUI_Menu=nil
 		MB.params.MBUI_Container=nil
 		ReloadUI()
@@ -2062,6 +2429,7 @@ function MB.commandHandler( text )
 		MBUI_Menu:SetHidden(false)
   elseif text=="save" then
     MB.SavePlayerInvent()
+<<<<<<< HEAD
   elseif text=="toggle" or text=="toggle inv" then
     if not MB.LastCommandUI then
         MB.LastCommandUI = "a"
@@ -2100,6 +2468,8 @@ function MB.commandHandler( text )
     MB.InitToolTipSearch(false)
   elseif text=="test" then
     d(string.format("%2$s -> %1$s","Hello","Hallo"))    
+=======
+>>>>>>> origin/master
 	elseif text=="p" then
 	      if MB.ShowHide(text) then
 			MB.CurrentLastValue=11
@@ -2145,6 +2515,7 @@ function MB.commandHandler( text )
 		if MB.ShowHide(text) then
 			MB.CurrentLastValue=11
 			MB.PrepareBankValues("Guild",1)			
+<<<<<<< HEAD
 			MB.FilterBank(MB.CurrentLastValue,MB.CurrentFilterType,MB.SearchText)
 			MBUI_Container:SetHidden(false)
 			MB.PreviousButtonClicked=nil
@@ -2154,11 +2525,25 @@ function MB.commandHandler( text )
 		if MB.ShowHide(text) then
 			MB.CurrentLastValue=11
 			MB.PrepareBankValues("All")			
+=======
+>>>>>>> origin/master
 			MB.FilterBank(MB.CurrentLastValue,MB.CurrentFilterType,MB.SearchText)
 			MBUI_Container:SetHidden(false)
 			MB.PreviousButtonClicked=nil
 			MB.LastButtonClicked=nil
 		end
+<<<<<<< HEAD
+=======
+  elseif text=="a" then
+		if MB.ShowHide(text) then
+			MB.CurrentLastValue=11
+			MB.PrepareBankValues("All")			
+			MB.FilterBank(MB.CurrentLastValue,MB.CurrentFilterType,MB.SearchText)
+			MBUI_Container:SetHidden(false)
+			MB.PreviousButtonClicked=nil
+			MB.LastButtonClicked=nil
+		end
+>>>>>>> origin/master
   elseif text=="r" then        
     if MB.ShowHide(text) then
     	MB.PrepareBankValues("Recipes")			
@@ -2168,7 +2553,11 @@ function MB.commandHandler( text )
 			MB.LastButtonClicked=nil
     end
   elseif text=="l" then                
+<<<<<<< HEAD
     if MB.ShowHide(text) then      
+=======
+    if MB.ShowHide(text) then
+>>>>>>> origin/master
     	MB.PrepareBankValues("Loot")			
 			MB.FilterBank(MB.CurrentLastValue,MB.CurrentFilterType,MB.SearchText)
 			MBUI_Container:SetHidden(false)
@@ -2251,6 +2640,7 @@ function MB.LootRecieved(eventCode, receivedBy, itemName, quantity, itemSound, l
      if (lootType == LOOT_TYPE_ITEM) then
         debug("objectName:" .. itemName)
         debug("stackCount:" .. tostring(quantity))   
+<<<<<<< HEAD
         debug("recievedBy:" .. tostring(recievedBy))        
         local icon,sellPrice,meetsUsageRequirement,ItemType,_ = GetItemLinkInfo(itemName)                
         -- local level = 0
@@ -2266,11 +2656,29 @@ function MB.LootRecieved(eventCode, receivedBy, itemName, quantity, itemSound, l
         --local id=tonumber(itemName:MB_splitone(":",3)) -- string.sub(link,start,finish))
         --debug("ID: "..tostring(id))
         local level = 1
+=======
+        debug("recievedBy:" .. tostring(recievedBy))
+        
+        local icon,sellPrice,meetsUsageRequirement,ItemType,_ = GetItemLinkInfo(itemName)
+                
+        local level = 0
+        local statValue = 0
+        local quality = 0
+        local id = 0
+        local name = "Unknown"
+        
+        MB.SavePlayerInvent()
+        local id=tonumber(itemName:MB_splitone(":",3)) -- string.sub(link,start,finish))
+        debug("ID: "..tostring(id))
+>>>>>>> origin/master
         
         for i=1,#MB.items.Chars[GetUnitName("player")] do
               local item = MB.items.Chars[GetUnitName("player")][i]
               if item.Id == id then
+<<<<<<< HEAD
                     icon = item.icon
+=======
+>>>>>>> origin/master
                     name = item.ItemName
                     statValue = item.statValue
                     quality = item.quality
@@ -2285,7 +2693,11 @@ function MB.LootRecieved(eventCode, receivedBy, itemName, quantity, itemSound, l
           ["ItemLink"]=itemName,
           ["icon"] = tostring(icon),
           ["ItemName"]= name,
+<<<<<<< HEAD
           ["Level"] = tonumber(level),
+=======
+          ["Level"] = level,
+>>>>>>> origin/master
           ["stackCount"]=quantity,
           ["statValue"]=statValue,
           ["sellPrice"] = sellPrice,
@@ -2299,16 +2711,22 @@ function MB.LootRecieved(eventCode, receivedBy, itemName, quantity, itemSound, l
 end
 
 function MB.SavePlayerInvent()
+<<<<<<< HEAD
     
   debug("Save Player Invent: " .. GetTimeString())
 	local bagIcon, bagSlots=GetBagInfo(BAG_BACKPACK)
   local equippeditems = 0
 	MB.ItemCounter=0
   MB.SearchBuffer = {}
+=======
+	local bagIcon, bagSlots=GetBagInfo(BAG_BACKPACK)
+	MB.ItemCounter=0
+>>>>>>> origin/master
 	debug("ThisCharName: "..tostring(MB.thisCharName))
 	debug("Items in Table Chars:"..tostring(#MB.items.Chars[MB.thisCharName]))
 	MB.items.Chars[MB.thisCharName]={}
 	debug("Items in Table Chars after clean:"..tostring(#MB.items.Chars[MB.thisCharName]))
+<<<<<<< HEAD
 
   -- Check Equipped Items
   
@@ -2374,6 +2792,65 @@ function MB.SavePlayerInvent()
     end
   end
 
+=======
+
+  -- Check Equipped Items
+  
+  local slots = {
+   "HEAD",
+   "CHEST",
+   "SHOULDERS",
+   "FEET",
+   "HAND",
+   "LEGS",
+   "WAIST",
+   "RING1",
+   "RING2",
+   "NECK",
+   "COSTUME",
+   "MAIN_HAND",
+   "OFF_HAND",
+   "BACKUP_MAIN",
+   "BACKUP_OFF"
+  }
+  
+  for k,v in pairs(slots) do
+    if _G["EQUIP_SLOT_" .. v] then      
+      local num = _G["EQUIP_SLOT_" .. v] 
+      local icon,slotHasItem, sellPrice, isHeldSlot, isHeldNow, locked = GetEquippedItemInfo(num)
+      if slotHasItem then        
+        local _, stack, _, meetsUsageRequirement, _, equipType, itemStyle, quality = GetItemInfo(0,_G[num])
+        local name = zo_strformat(SI_TOOLTIP_ITEM_NAME, GetItemName(0,num))
+        local link = GetItemLink(0,num)
+        local clearlink =string.gsub(link, "|h.+|h", "|h"..tostring(name).."|h")
+        local statValue = GetItemStatValue(0,num)
+        local ItemType=GetItemType(0,num)        
+        debug( v .. ":" ..name .. "," .. link)
+        local level = GetItemLevel(0,num)
+      
+        if statValue == 0 then
+            statValue = level
+        end    
+        
+      	MB.items.Chars[MB.thisCharName][#MB.items.Chars[MB.thisCharName]+1]={
+				["ItemLink"]=tostring(clearlink),
+				["icon"] = tostring(icon),
+				["ItemName"] = name, -- GetItemName(0,num), -- tostring(name),
+        ["Level"] = level,
+				["stackCount"]=stack,
+				["statValue"]=statValue,
+				["sellPrice"] = sellPrice,
+				["quality"] = quality,
+				["meetsUsageRequirement"]=meetsUsageRequirement,
+				["ItemType"]=ItemType,
+				["Id"]=id,
+        ["Equipped"] = v
+        }		
+      end
+    end
+  end
+
+>>>>>>> origin/master
     
 	while (MB.ItemCounter < bagSlots) do
 		if GetItemName(BAG_BACKPACK,MB.ItemCounter)~="" then
@@ -2388,6 +2865,7 @@ function MB.SavePlayerInvent()
 			local icon, stack, sellPrice, meetsUsageRequirement, locked, equipType, itemStyle, quality = GetItemInfo(BAG_BACKPACK,MB.ItemCounter)
 			local ItemType=GetItemType(BAG_BACKPACK,MB.ItemCounter)
 			-- local start,finish=string.find(link, "%d+")
+<<<<<<< HEAD
 			-- local id=tonumber(link:MB_splitone(":",3)) -- string.sub(link,start,finish))
           
       local level = GetItemLevel(BAG_BACKPACK,MB.ItemCounter)
@@ -2399,13 +2877,25 @@ function MB.SavePlayerInvent()
          if not statValue then
             statValue = 1
          end
+=======
+			local id=tonumber(link:MB_splitone(":",3)) -- string.sub(link,start,finish))
+          
+      local level = GetItemLevel(BAG_BACKPACK,MB.ItemCounter)
+      
+      if statValue == 0 then
+          statValue = level
+>>>>>>> origin/master
       end
       
 			MB.items.Chars[MB.thisCharName][#MB.items.Chars[MB.thisCharName]+1]={
 				["ItemLink"]=tostring(clearlink),
 				["icon"] = tostring(icon),
 				["ItemName"]=name, -- GetItemName(BAG_BACKPACK, MB.ItemCounter), -- tostring(name),
+<<<<<<< HEAD
         ["Level"] = tonumber(level),
+=======
+        ["Level"] = level,
+>>>>>>> origin/master
 				["stackCount"]=stackCount,
 				["statValue"]=statValue,
 				["sellPrice"] = sellPrice,
@@ -2423,7 +2913,11 @@ function MB.SavePlayerInvent()
 	end
 	MB.gold.Chars[MB.thisCharName].Current = GetCurrentMoney() 
 	MB.items.Chars[MB.thisCharName].CurSlots=bagSlots-itemsToCheck
+<<<<<<< HEAD
 	MB.items.Chars[MB.thisCharName].MaxSlots=bagSlots+equippeditems
+=======
+	MB.items.Chars[MB.thisCharName].MaxSlots=bagSlots
+>>>>>>> origin/master
 end
 
 function MB.Update(self)
@@ -2476,6 +2970,7 @@ if (not MB.AddonReady) then return end
 			-- start,finish=string.find(link, "%d+")
 			-- id=tonumber(string.sub(link,start,finish))
      
+<<<<<<< HEAD
       -- local id=tonumber(link:MB_splitone(":",3)) -- string.sub(link,start,finish))
     
       local level = GetItemLevel(BAG_GUILDBANK,slotIndex)
@@ -2490,6 +2985,16 @@ if (not MB.AddonReady) then return end
           end
       end
       
+=======
+      local id=tonumber(link:MB_splitone(":",3)) -- string.sub(link,start,finish))
+    
+      local level = GetItemLevel(BAG_GUILDBANK,slotIndex)
+    
+      if statValue == 0 then
+          statValue = level
+      end
+
+>>>>>>> origin/master
 			sv[#sv+1] = 
 			{
 				["ItemLink"] = tostring(clearlink),

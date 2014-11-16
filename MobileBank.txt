@@ -1,5 +1,9 @@
 ## Title: MobileBank Extended
+<<<<<<< HEAD
 ## APIVersion: 100010
+=======
+## APIVersion: 100007
+>>>>>>> origin/master
 ## SavedVariables: MB_SavedVars
 ## Description: Shows Inventory (other Characters) or Bank or Guild Bank Contents (Last time you checked them). Bind Keys or use /mb on the command prompt.
 ## OptionalDependsOn: LibAddonMenu-2.0

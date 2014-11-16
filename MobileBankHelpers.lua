@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 	
   
+=======
+ 	
+>>>>>>> origin/master
 function string:MB_split(sep)
         local sep, fields = sep or ":", {}
         local pattern = string.format("([^%s]+)", sep)
@@ -36,6 +40,7 @@ MB_Util = {
       return alias      
    end,
    
+<<<<<<< HEAD
    GetAliasGuildName = function(self,name)
      local alias = name      
       if MB and MB.aliases and MB.aliases.Guilds then               
@@ -48,6 +53,8 @@ MB_Util = {
       return alias      
    end,
    
+=======
+>>>>>>> origin/master
    ShallowCopyTable = function(self,t)   
       local t2 = {}
         for i=1,#t do
@@ -67,6 +74,7 @@ MB_Util = {
       return t2
    end,
    
+<<<<<<< HEAD
    GetCurrentCharInv = function(self)
       local inv = 0
       local currentChar = GetUnitName("player")
@@ -90,14 +98,20 @@ MB_Util = {
       end
    end,
    
+=======
+>>>>>>> origin/master
    MergeTables = function(self,in_main,in_add,identifier)
      local newt = {}
      local main = self:ShallowCopyTable(in_main)
      local add = self:ShallowCopyTable(in_add)
+<<<<<<< HEAD
      -- d("MergeTables " .. identifier)
      
      if #main == 0 then
         -- d("Return original!")
+=======
+     if #main == 0 then
+>>>>>>> origin/master
         return add
      end 
      -- d("Table1:" ..tostring(#main))
@@ -105,7 +119,11 @@ MB_Util = {
      -- first we need to find possible duplicated itemlinks...
      for i=1,#main do
         local dupl = false
+<<<<<<< HEAD
         local stackCount = main[i].stackCount
+=======
+        local stackCount = 0
+>>>>>>> origin/master
         --[[
         if main[i].Id then
          -- if main[i].Id == 0 then
@@ -121,18 +139,28 @@ MB_Util = {
           for k=1,#add do              
             if main[i].ItemName == add[k].ItemName and main[i].statValue == add[k].statValue then
                dupl = true
+<<<<<<< HEAD
                if main[i].ItemName == "Orichalcum Ingot" then
                  -- d("Iron Ingot: " .. tostring(main[i].stackCount) .. " / " .. tostring(add[k].stackCount) .. " ( " .. tostring(stackCount) .. ")")
                 end
                stackCount = stackCount + add[k].stackCount
+=======
+               -- d("It's a dub")
+               stackCount = add[k].stackCount
+>>>>>>> origin/master
             end              
           end
           if dupl then
             -- d("Dupl: " .. main[i].ItemName .. " (" .. stackCount .. " / " .. main[i].stackCount .. ")")
+<<<<<<< HEAD
             local tbltemp = self:ShallowCopyTableValues(main[i])
             tbltemp.stackCount = stackCount -- main[i].stackCount +
             newt[#newt+1] = tbltemp
             -- newt[#newt].stackCount = main[i].stackCount + stackCount            
+=======
+            newt[#newt+1] = self:ShallowCopyTableValues(main[i])
+            newt[#newt].stackCount = main[i].stackCount + stackCount
+>>>>>>> origin/master
           else -- not duplicate just copy
             newt[#newt+1] = self:ShallowCopyTableValues(main[i])
           end
@@ -140,6 +168,7 @@ MB_Util = {
      end
      for i=1,#add do
         local dupl = false
+<<<<<<< HEAD
         local dplind = 0
         for k=1,#newt do            
             if (add[i].ItemName == newt[k].ItemName and add[i].statValue == newt[k].statValue) then  
@@ -159,6 +188,15 @@ MB_Util = {
               newt[dplind].stackCount = newt[dplind].stackCount + add[i].stackCount
             end
           end
+=======
+        for k=1,#newt do            
+            if (add[i].ItemName == newt[k].ItemName and add[i].statValue == newt[k].statValue) then  
+               dupl = true                 
+            end            
+        end
+        if not dupl then          
+          newt[#newt+1] = self:ShallowCopyTableValues(add[i])
+>>>>>>> origin/master
         end       
      end
      -- d("Merged Table Size: " .. tostring(#newt))
@@ -176,6 +214,7 @@ MB_Util = {
         MB.FilterBank(MB.CurrentLastValue,MB.CurrentFilterType,MB.SearchText)
       end      
     end,
+<<<<<<< HEAD
     
     SubFilterOnShow = function(self,control)
           MBUI_ContainerTitleFilterSubFilter1:SetState(1)
@@ -324,3 +363,9 @@ MB_Util = {
  end
 
  
+=======
+      
+   
+ }
+ 
+>>>>>>> origin/master

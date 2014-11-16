@@ -11,6 +11,7 @@ MB.options.GetRealName = function (num)
 	return ""
 end
 
+<<<<<<< HEAD
 MB.options.GetAccountName = function (num)
   if MB.aliases and MB.aliases.Chars then
 		for k,v in pairs(MB.aliases.Chars) do
@@ -40,6 +41,8 @@ MB.options.GetAccounts = function()
 	return tmp2
 end
 
+=======
+>>>>>>> origin/master
 MB.options.GetRealGuildName = function (num)
     if MB.aliases and MB.aliases.Guilds then
 		for k,v in pairs(MB.aliases.Guilds) do
@@ -48,7 +51,11 @@ MB.options.GetRealGuildName = function (num)
 			end
 		end
 	end
+<<<<<<< HEAD
 	return "Guild " .. num
+=======
+	return ""
+>>>>>>> origin/master
 end
 
 MB.options.GetNumber = function(num)
@@ -186,7 +193,10 @@ MB.options.GetEditBox = function (num, isGuild)
 
         else
             editbox.name = "Char " .. num .. ": " .. MB.options.GetRealName(num)
+<<<<<<< HEAD
             editbox.tooltip = "Enter an Alias for " .. MB.options.GetRealName(num) .. " " .. MB.options.GetAccountName(num)
+=======
+>>>>>>> origin/master
             editbox.getFunc = function() return MB.options.GetAliasName(num) end
             editbox.setFunc = function(text)  MB.options.SetAliasName(num,text) end
             editbox.default =  MB.options.GetRealName(num)
@@ -195,6 +205,7 @@ MB.options.GetEditBox = function (num, isGuild)
 	return editbox
 end
 
+<<<<<<< HEAD
 MB.options.GetGlobalIgnoreGuild = function(num)
   if num == 1 then return not MB.global.IgnoreGuild1 end
   if num == 2 then return not MB.global.IgnoreGuild2 end
@@ -264,6 +275,8 @@ MB.options.GetGuildIgnoreIngredients = function (num)
 end
 
 
+=======
+>>>>>>> origin/master
 MB.options.GetOrderBox = function (num, isGuild)
 	local orderbox = {
 				 type = "editbox",
@@ -345,7 +358,11 @@ MB.options.SetData = function()
 				-- width = "half",	--or "half" (optional)
 				-- warning = "Will need to reload the UI.",	--(optional)
 			},
+<<<<<<< HEAD
   [6] = {
+=======
+  [5] = {
+>>>>>>> origin/master
 				type = "checkbox",
 				name = "Show Debug Text in Chat Window",
 				tooltip = "This option is only useful if there is any problems. The output will help to find problems",
@@ -355,7 +372,11 @@ MB.options.SetData = function()
                   end,				
 				warning = "Will turn off automatically after ReloadUI or logoff",	--(optional)
 			},
+<<<<<<< HEAD
 	[7] = {
+=======
+	[6] = {
+>>>>>>> origin/master
 			type = "button",
 			name = "Reset Data",
 			-- tooltip = "Reset aButton's tooltip text.",
@@ -366,7 +387,11 @@ MB.options.SetData = function()
 		warning = "This will reload the UI and you will need to login to every character to rebuild the Data after this",	--(optional)
 	
 	},
+<<<<<<< HEAD
 	[8] = {
+=======
+	[7] = {
+>>>>>>> origin/master
 		type = "submenu",
 		name = "Characters (sort, aliases,account)",
 		tooltip = "Reorder Display of Characters and set Aliases",	--(optional)
@@ -432,6 +457,37 @@ MB.options.SetData = function()
 			[11] = {
 						type = "button",
 						name = "Apply Changes",
+<<<<<<< HEAD
+=======
+            tooltip = "For Alias Changes just press ESC twice. The Order changes are only applied when using Logoff or Reload the UI",						
+						func = function()
+							ReloadUI()													
+						end,
+						width = "half",	--or "half" (optional)
+						warning = "This will reload the UI to apply Order Changes",	--(optional)
+	
+			},
+			},
+		},
+  	[8] = {
+		type = "submenu",
+		name = "Guilds",
+		tooltip = "Reorder Display of Guilds and set Aliases",	--(optional)
+		controls = {
+			[1] =  MB.options.GetEditBox(1,true),
+			[2] = MB.options.GetOrderBox(1,true),
+			[3] = MB.options.GetEditBox(2,true),
+			[4] = MB.options.GetOrderBox(2,true),
+			[5] = MB.options.GetEditBox(3,true),
+			[6] = MB.options.GetOrderBox(3,true),
+			[7] = MB.options.GetEditBox(4,true),
+			[8] = MB.options.GetOrderBox(4,true),
+			[9] = MB.options.GetEditBox(5,true),
+			[10] = MB.options.GetOrderBox(5,true),
+			[11] = {
+						type = "button",
+						name = "Apply Changes",
+>>>>>>> origin/master
 						tooltip = "For Alias Changes just press ESC twice. The Order changes are only applied when using Logoff or Reload the UI",
 						func = function()
 							ReloadUI()													
@@ -442,6 +498,7 @@ MB.options.SetData = function()
 			},
 			},
 		},
+<<<<<<< HEAD
     
     [10] = {
 		type = "submenu",
@@ -461,6 +518,9 @@ MB.options.SetData = function()
 			},
 		},
     
+=======
+
+>>>>>>> origin/master
 	}
 end
 

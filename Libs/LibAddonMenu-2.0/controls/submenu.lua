@@ -6,7 +6,11 @@
 	reference = "MyAddonSubmenu"	--(optional) unique global reference to control
 }	]]
 
+<<<<<<< HEAD
 local widgetVersion = 5
+=======
+local widgetVersion = 3
+>>>>>>> origin/master
 local LAM = LibStub("LibAddonMenu-2.0")
 if not LAM:RegisterWidget("submenu", widgetVersion) then return end
 
