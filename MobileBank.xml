@@ -1,21 +1,116 @@
 <GuiXml>
-	<Animations>
-		<AnimationTimeline name="MBUI_IconAnimation" >
-			<Animations>
-				<!-- <SizeAnimation duration="150" startHeight="40" startWidth="40" endHeight="70" endWidth="70" /> -->
-			</Animations>
-		</AnimationTimeline>
-
-		<AnimationTimeline name="MBUI_FilterAnimation" >
-			<Animations>
-			<!--	<SizeAnimation duration="150" startHeight="16" startWidth="16" endHeight="32" endWidth="32" /> -->
-			</Animations>
-		</AnimationTimeline>
-
-	</Animations>
   
 	<Controls>
-        <!-- Формируем пустышку -->
+    <!-- Virtual Controls -->
+    <Button alpha="0.7" name="MB_Virtual_Button" virtual="true"> 
+        <Anchor point="TOPRIGHT" relativeTo="MBUI_Container" relativePoint="TOPRIGHT" offsetX="-40" offsetY="0" />
+        <Dimensions x="32" y="32" />   
+        <OnMouseExit>
+             ClearTooltip(InformationTooltip)
+        </OnMouseExit>
+    </Button>
+    
+    <Button name="MB_Virtual_SortButton" font="ZoFontGame" virtual="true"> 
+        <FontColors normalColor="AAAAAA" mouseOverColor="FFFFFF" pressedColor="FFFFFF" />                     
+        <Dimensions x="60" y="20" />
+        <OnMouseExit>
+          ClearTooltip(InformationTooltip)                  
+        </OnMouseExit>
+    </Button>
+
+    <Button alpha="0.7" name="MB_Virtual_FilterButton" font="ZoFontGame" virtual="true" mouseEnabled="true">
+      <Dimensions x="32" y="32" />
+      <OnMouseEnter>
+        InitializeTooltip(InformationTooltip, self, TOPRIGHT)               
+        local name = self:GetName():gsub("MBUI_ContainerTitleFilter","")
+        SetTooltipText(InformationTooltip, name) 
+      </OnMouseEnter>
+      <OnMouseExit>
+          ClearTooltip(InformationTooltip)
+      </OnMouseExit>
+
+      <OnMouseUp>
+        local name = self:GetName():gsub("MBUI_ContainerTitleFilter","")     
+        MBUI_ContainerTitleFilterAll:SetState(0)
+        MBUI_ContainerTitleFilterWeapon:SetState(0)
+        MBUI_ContainerTitleFilterApparel:SetState(0)
+        MBUI_ContainerTitleFilterConsumable:SetState(0)
+        MBUI_ContainerTitleFilterMaterials:SetState(0)
+        MBUI_ContainerTitleFilterMiscellaneous:SetState(0)
+        MBUI_ContainerTitleFilterJunk:SetState(0)
+        self:SetState(1)
+        MB.CurrentSubFilter = "1"
+        MB.FilterClicked(self, name)    
+        MBUI_ContainerTitleFilterSubFilter1:SetState(1)
+        MBUI_ContainerTitleFilterSubFilter2:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter3:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter4:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter5:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter6:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter7:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter8:SetState(0)        
+        MBUI_ContainerTitleFilterSubFilter1:SetAlpha(1)
+        MBUI_ContainerTitleFilterSubFilter2:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter3:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter4:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter5:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter6:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter7:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter8:SetAlpha(0.5)
+        
+      </OnMouseUp>
+    </Button>
+    
+    <Button alpha="0.5" name="MB_Virtual_SubFilterButton" hidden="true" font="ZoFontGame" virtual="true" mouseEnabled="true">
+      <Dimensions x="32" y="32" />      
+        
+      <Textures normal="EsoUI/Art/Progression/progression_crafting_delevel_down.dds"                          
+                mouseOver="EsoUI/Art/Progression/progression_crafting_delevel_up.dds"
+                pressed="EsoUI/Art/Progression/progression_crafting_delevel_up.dds"
+                />
+                
+      <OnShow>          
+          MB_Util:SubFilterOnShow(self)    
+      </OnShow>
+      
+      <OnMouseEnter>
+        InitializeTooltip(InformationTooltip, self, TOPRIGHT)               
+        local name = self:GetName():gsub("MBUI_ContainerTitleFilter","")
+        SetTooltipText(InformationTooltip, self.ToolTipText)
+      </OnMouseEnter>
+      <OnMouseExit>
+          ClearTooltip(InformationTooltip)
+      </OnMouseExit>
+
+      <OnMouseUp>
+        MBUI_ContainerTitleFilterSubFilter1:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter2:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter3:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter4:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter5:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter6:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter7:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter8:SetState(0)
+        MBUI_ContainerTitleFilterSubFilter1:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter2:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter3:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter4:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter5:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter6:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter7:SetAlpha(0.5)
+        MBUI_ContainerTitleFilterSubFilter8:SetAlpha(0.5)
+        self:SetState(1)
+        self:SetAlpha(1)     
+        local name = self:GetName():gsub("MBUI_ContainerTitleFilterSubFilter","")        
+        -- d("MB.CurrentFilterType (xml): " .. MB.CurrentFilterType)
+        MB.CurrentSubFilter = name
+        MB.FilterClicked(self, MB.CurrentFilterType)
+      </OnMouseUp>
+    </Button>
+  
+                  
+    
+    <!-- Main Container -->
 		<TopLevelControl name="MBUI_Blank">
 			<OnUpdate>
 				MB.Update(self)
@@ -24,14 +119,11 @@
 		</TopLevelControl>
 		
 		<TopLevelControl name="MBUI">
-		<Controls>
-		
-			<!-- Заготовка отображения информации о предмете -->
+		<Controls>      
+			<!-- Container for List of Contents -->
 			<Control name="MBUI_Container" mouseEnabled="true" hidden="true">
 				<Dimensions x="560" y="750" />
 				<Controls>
-
-			
 					<!-- Фон -->
 					<Backdrop name="$(parent)Bg" centerColor="00000000" edgeColor="00000000">
 						<Anchor point="TOPLEFT" relativePoint="TOPLEFT" offsetX="10" offsetY="0"/>
@@ -44,312 +136,373 @@
 					</Texture>							
 					
 					<!-- Заголовок -->
-					<Label name="$(parent)Title" font="ZoFontGame" text="|cffffffMobile Bank Extended|">
+          
+          <Control name="$(parent)Title" excludeFromResizeToFitExtents="true">
+            <Dimensions x="256" y="32" />
+            <Anchor point="TOP" relativePoint="TOP" offsetX="0"offsetY="0" />            
+            <Controls>
+                <Texture name="$(parent)BG" Alpha="0.5" textureFile="EsoUI/Art/Tooltips/toolTip_equippedLabel_bg.dds">
+                    <AnchorFill />
+                </Texture>
+
+                <Label name="$(parent)Text" font="ZoFontGameBold" color="000000" text="Mobile Bank Extended" styleColor="FFFFFFCC">
+                    <Anchor point="CENTER" offsetY="3" />
+                </Label>
+            
+<!-- 
+					<Label name="$(parent)Title" font="ZoFontGame" text="|cffffffMobile Bank|r |c99FFFF Extended|r">
 						<Dimensions y="150" />
 						<Anchor point="TOP" relativePoint="TOP" offsetX="0" offsetY="15"/>
 						<Controls>
-							<Button name="$(parent)Close" font="ZoFontGame" text="[X]">
-								<Anchor point="TOPRIGHT" relativeTo="MBUI_Container" relativePoint="TOPRIGHT" offsetX="0" offsetY="0"/>
-								<Dimensions x="30" y="30" />
+-->
+ 							<Button name="$(parent)Close" inherits="MB_Virtual_Button">
+								<Anchor point="TOPRIGHT" relativeTo="MBUI_Container" relativePoint="TOPRIGHT" offsetX="-12" offsetY="12"/>
+								<Dimensions x="24" y="24" />
+                <OnMouseEnter>
+                    InitializeTooltip(InformationTooltip, self, TOPRIGHT)
+                    SetTooltipText(InformationTooltip, "Close")
+                </OnMouseEnter>
+        
 								<OnClicked>
 									MBUI_Container:SetHidden(true)
 									MB.PreviousButtonClicked=nil
 									MB.LastButtonClicked=nil
 								</OnClicked>
-								<OnInitialized>
-									self:SetNormalFontColor(0,255,255,.7)
-									self:SetMouseOverFontColor(0.8,0.4,0,1)
-								</OnInitialized>
+								<Textures normal="EsoUI/Art/Buttons/decline_down.dds"                          
+                          mouseOver="EsoUI/Art/Buttons/decline_over.dds"                          
+                          />
 							</Button>
+             
+            <Button name="$(parent)SwitchAll" inherits="MB_Virtual_Button">
+                <Anchor point="TOPRIGHT" relativeTo="MBUI_Container" relativePoint="TOPLEFT" offsetX="40" offsetY="12" />
+                
+                <OnMouseEnter>
+                    InitializeTooltip(InformationTooltip, self, TOPRIGHT)
+                    SetTooltipText(InformationTooltip, "Show All")
+                </OnMouseEnter>
+        
+                <OnClicked>                                            
+                      self:SetAlpha(.8)
+                      MB.CurrentLastValue=11
+                      MB.PrepareBankValues("All")
+                      MB.FilterBank(MB.CurrentLastValue,MB.CurrentFilterType,MB.SearchText)									
+                      MB.PreviousButtonClicked=nil
+                      MB.LastButtonClicked=nil		                      
+                </OnClicked>
+                                
+                <Textures normal="EsoUI/Art/Guild/tabicon_roster_up.dds"                          
+                          mouseOver="EsoUI/Art/Guild/tabicon_roster_down.dds"
+                          pressed="EsoUI/Art/Guild/tabicon_roster_down.dds"
+                          />
+            </Button>
 
-							<Button name="$(parent)SwitchInv" font="ZoFontGame" text="[I]">
-								<Anchor point="TOPRIGHT" relativeTo="MBUI_Container" relativePoint="TOPRIGHT" offsetX="-100" offsetY="12"/>
-								<Dimensions x="30" y="30" />
-								<OnClicked>
+						<Button name="$(parent)SwitchInv" inherits="MB_Virtual_Button">
+								<Anchor point="TOPRIGHT" relativeTo="$(parent)SwitchAll" relativePoint="TOPRIGHT" offsetX="32" offsetY="0"/>
+								
+                <OnMouseEnter>
+                    InitializeTooltip(InformationTooltip, self, TOPRIGHT)
+                    SetTooltipText(InformationTooltip, "Inventories")
+                </OnMouseEnter>
+        
+								<OnClicked>                  
+                  self:SetAlpha(.8)
+
 									MB.CurrentLastValue=11
-									MB.PrepareBankValues("Invent")
+									MB.PrepareBankValues("Invent", MB.ChangeCharacterDisplay())
 									MB.FilterBank(MB.CurrentLastValue,MB.CurrentFilterType,MB.SearchText)									
 									MB.PreviousButtonClicked=nil
-									MB.LastButtonClicked=nil				
+									MB.LastButtonClicked=nil				                  
 								</OnClicked>
-								<OnInitialized>
-									self:SetNormalFontColor(0,255,255,.7)
-									self:SetMouseOverFontColor(0.8,0.4,0,1)
-								</OnInitialized>
-							</Button>
-							
-							<Button name="$(parent)SwitchBank" font="ZoFontGame" text="[B]">
-								<Anchor point="TOPRIGHT" relativeTo="MBUI_Container" relativePoint="TOPRIGHT" offsetX="-70" offsetY="12"/>
-								<Dimensions x="30" y="30" />
-								<OnClicked>
+                
+                <Textures normal="EsoUI/Art/CharacterCreate/charactercreate_faceicon_up.dds"                          
+                          mouseOver="EsoUI/Art/CharacterCreate/charactercreate_faceicon_down.dds" 
+                          pressed="EsoUI/Art/CharacterCreate/charactercreate_faceicon_down.dds" 
+                          />
+             
+            </Button>
+            
+            <Button name="$(parent)SwitchBank" inherits="MB_Virtual_Button">
+								<Anchor point="TOPRIGHT" relativeTo="$(parent)SwitchInv" relativePoint="TOPRIGHT" offsetX="32" offsetY="0"/>
+								
+                <OnMouseEnter>
+                    InitializeTooltip(InformationTooltip, self, TOPRIGHT)
+                    SetTooltipText(InformationTooltip, "Bank")
+                </OnMouseEnter>
+        
+								<OnClicked>                  
+                  self:SetAlpha(.8)
 									MB.CurrentLastValue=11
-									MB.PrepareBankValues("Bank")
+                  MB.PrepareBankValues("Bank")
 									MB.FilterBank(MB.CurrentLastValue,MB.CurrentFilterType,MB.SearchText)									
 									MB.PreviousButtonClicked=nil
-									MB.LastButtonClicked=nil					
+									MB.LastButtonClicked=nil				                  
 								</OnClicked>
-								<OnInitialized>
-									self:SetNormalFontColor(0,255,255,.7)
-									self:SetMouseOverFontColor(0.8,0.4,0,1)
-								</OnInitialized>
+
+                <Textures normal="EsoUI/Art/Journal/leaderboard_tabicon_home_up.dds"                          
+                          mouseOver="EsoUI/Art/Journal/leaderboard_tabicon_home_down.dds"
+                          pressed="EsoUI/Art/Journal/leaderboard_tabicon_home_down.dds"
+                          />
 							</Button>
 
-							<Button name="$(parent)SwitchGuild" font="ZoFontGame" text="[G]">
-								<Anchor point="TOPRIGHT" relativeTo="MBUI_Container" relativePoint="TOPRIGHT" offsetX="-40" offsetY="12"/>
-								<Dimensions x="30" y="30" />
-								<OnClicked>
+							<Button name="$(parent)SwitchGuild" inherits="MB_Virtual_Button">
+                <Anchor point="TOPRIGHT" relativeTo="$(parent)SwitchBank" relativePoint="TOPRIGHT" offsetX="32" offsetY="0"/>
+								
+                <OnMouseEnter>
+                    InitializeTooltip(InformationTooltip, self, TOPRIGHT)
+                    SetTooltipText(InformationTooltip, "Guilds")
+                </OnMouseEnter>
+        
+								<OnClicked>        
+                  self:SetAlpha(.8)
 									MB.CurrentLastValue=11
-									MB.PrepareBankValues("Guild")
+ 									MB.PrepareBankValues("Guild")
 									MB.FilterBank(MB.CurrentLastValue,MB.CurrentFilterType,MB.SearchText)									
 									MB.PreviousButtonClicked=nil
-									MB.LastButtonClicked=nil										
+									MB.LastButtonClicked=nil				                  
 								</OnClicked>
-								<OnInitialized>
-									self:SetNormalFontColor(0,255,255,.7)
-									self:SetMouseOverFontColor(0.8,0.4,0,1)
-								</OnInitialized>
+
+                <Textures normal="EsoUI/Art/Guild/guildhistory_indexicon_guildbank_up.dds"                          
+                          mouseOver="EsoUI/Art/Guild/guildhistory_indexicon_guildbank_down.dds"
+                          pressed="EsoUI/Art/Guild/guildhistory_indexicon_guildbank_down.dds"
+                          />
+
 							</Button>
 
-							<Control name="$(parent)GuildButtons" font="ZoFontGame" text="Name">
+              <Button name="$(parent)SwitchLoot" inherits="MB_Virtual_Button">
+                <Anchor point="TOPRIGHT" relativeTo="$(parent)SwitchGuild" relativePoint="TOPRIGHT" offsetX="32" offsetY="0"/>
+								
+                <OnMouseEnter>
+                    InitializeTooltip(InformationTooltip, self, TOPRIGHT)
+                    SetTooltipText(InformationTooltip, "Loot (recently)")
+                </OnMouseEnter>
+        
+								<OnClicked>                  
+                  self:SetAlpha(1)
+                  MB.PrepareBankValues("Loot")
+                  MB.FilterBank(MB.CurrentLastValue,MB.CurrentFilterType,MB.SearchText)
+                  MBUI_Container:SetHidden(false)
+                  MB.PreviousButtonClicked=nil
+                  MB.LastButtonClicked=nil			                  
+								</OnClicked>
+
+                <Textures normal="EsoUI/Art/Inventory/inventory_all_tabicon_inactive.dds"                          
+                          mouseOver="EsoUI/Art/Inventory/inventory_all_tabicon_active.dds"
+                          pressed="EsoUI/Art/Inventory/inventory_all_tabicon_active.dds"
+                          />
+
+							</Button>                
+
+              <Button name="$(parent)SwitchRecipes" inherits="MB_Virtual_Button">
+                <Anchor point="TOPRIGHT" relativeTo="$(parent)SwitchLoot" relativePoint="TOPRIGHT" offsetX="260" offsetY="0"/>
+								
+                <OnMouseEnter>
+                    InitializeTooltip(InformationTooltip, self, TOPRIGHT)
+                    SetTooltipText(InformationTooltip, "Recipes")
+                </OnMouseEnter>
+        
+								<OnClicked>                  
+                  self:SetAlpha(.8)
+                  MB.PrepareBankValues("Recipes")
+                  MB.FilterBank(MB.CurrentLastValue,"All",MB.SearchText)
+                  MBUI_Container:SetHidden(false)
+                  MB.PreviousButtonClicked=nil
+                  MB.LastButtonClicked=nil			                  
+								</OnClicked>
+
+                <Textures normal="EsoUI/Art/Crafting/provisioner_indexicon_beer_up.dds"                          
+                          mouseOver="EsoUI/Art/Crafting/provisioner_indexicon_beer_down.dds"
+                          pressed="EsoUI/Art/Crafting/provisioner_indexicon_beer_down.dds"
+                          />
+
+							</Button>              
+              
+              <Button layer="OVERLAY" name="$(parent)ToggleEquipped" inherits="MB_Virtual_Button">
+                <Anchor point="TOPRIGHT" relativeTo="$(parent)SwitchRecipes" relativePoint="TOPRIGHT" offsetX="0" offsetY="52"/>
+								
+                <OnMouseEnter>
+                    InitializeTooltip(InformationTooltip, self, TOPRIGHT)
+                    SetTooltipText(InformationTooltip, "Show/Hide Equipped Armor and Weapons")
+                </OnMouseEnter>
+        
+								<OnClicked>                  
+                  self:SetAlpha(.8)
+                  MB.global.ShowEquipped = not MB.global.ShowEquipped
+                  if MB.global.ShowEquipped then
+                    self:SetState(1)
+                  else
+                    self:SetState(0)
+                  end                                   
+                  MB.PrepareBankValues(MB.Label)
+                  MB.FilterBank(MB.CurrentLastValue,MB.CurrentFilterType,MB.SearchText)
+                  MBUI_Container:SetHidden(false)
+                  MB.PreviousButtonClicked=nil
+                  MB.LastButtonClicked=nil		
+								</OnClicked>
+
+                <Textures normal="EsoUI/Art/Crafting/smithing_tabicon_weaponset_up.dds"                          
+                          mouseOver="EsoUI/Art/Crafting/smithing_tabicon_weaponset_down.dds"
+                          pressed="EsoUI/Art/Crafting/smithing_tabicon_weaponset_down.dds"
+                          />
+
+							</Button>        
+              
+							<Control layer="OVERLAY" name="$(parent)GuildButtons" font="ZoFontGame" text="Name" mouseEnabled="true">
+                <Dimensions x="560" y="20" />
+								<Anchor point="CENTER" relativePoint="TOP" relativeTo="MBUI_Container" offsetX="0" offsetY="54"/>
 							</Control>
 
-							<Control name="$(parent)InventButtons" font="ZoFontGame" text="Name">
+							<Control layer="OVERLAY" name="$(parent)InventButtons" font="ZoFontGame" text="Name" mouseEnabled="true">
+                <Dimensions x="560" y="20" />
+								<Anchor point="CENTER" relativePoint="TOP" relativeTo="MBUI_Container" offsetX="0" offsetY="54"/>
 							</Control>
 
 							<Control name="$(parent)Filter" mouseEnabled="true">
 								<Dimensions x="560" y="64" />
-								<Anchor point="CENTER" relativePoint="TOP" relativeTo="MBUI_Container" offsetX="0" offsetY="90"/>
+								<Anchor point="CENTER" relativePoint="TOP" relativeTo="MBUI_Container" offsetX="0" offsetY="80"/>
 								<OnInitialized>
 									MB.FilterInit(self)
 								</OnInitialized>
 								<Controls>
-									<!-- Фильтр: All -->
-									<Control name="$(parent)All" mouseEnabled="true">
-										<Anchor point="CENTER" relativePoint="CENTER" offsetX="-250" offsetY="0"/>
-										<Dimensions x="32" y="32" />
-										<Controls>
-											<Texture name="$(parent)TextureNormal" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_all_up.dds" resizeToFitFile="false">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TexturePressed" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_all_down.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TextureHighlight" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_all_over.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-										</Controls>
+									<!-- Filter: All -->
+                  <Button name="$(parent)All" inherits="MB_Virtual_FilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" offsetX="-250" offsetY="0"/>
+                    
+                    <Textures normal="EsoUI/Art/Inventory/inventory_tabIcon_all_up.dds"                          
+                              mouseOver="EsoUI/Art/Inventory/inventory_tabIcon_all_down.dds"
+                              pressed="EsoUI/Art/Inventory/inventory_tabIcon_all_down.dds"
+                              />
+                  </Button>
+									<!-- Filter: Weapon -->
+                  <Button name="$(parent)Weapon" inherits="MB_Virtual_FilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)All" offsetX="40" offsetY="0"/>
+                    
+                    <Textures normal="EsoUI/Art/Inventory/inventory_tabIcon_weapons_up.dds"                          
+                              mouseOver="EsoUI/Art/Inventory/inventory_tabIcon_weapons_down.dds"
+                              pressed="EsoUI/Art/Inventory/inventory_tabIcon_weapons_down.dds"
+                              />
+                  </Button>
+									<!-- Filter: Apparel -->
+                  <Button name="$(parent)Apparel" inherits="MB_Virtual_FilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)Weapon" offsetX="40" offsetY="0"/>
+                    
+                    <Textures normal="EsoUI/Art/Inventory/inventory_tabIcon_armor_up.dds"                          
+                              mouseOver="EsoUI/Art/Inventory/inventory_tabIcon_armor_down.dds"
+                              pressed="EsoUI/Art/Inventory/inventory_tabIcon_armor_down.dds"
+                              />
+                  </Button>
 
-										<OnMouseEnter>
-											MB.FilterEnter(self)
-										</OnMouseEnter>
-										<OnMouseExit>
-											MB.FilterExit(self)
-										</OnMouseExit>
-
-										<OnMouseUp>
-											MB.FilterClicked(self,"All")
-										</OnMouseUp>
-
-									</Control>
-
-									<!-- Фильтр: Weapon -->
-									<Control name="$(parent)Weapon" mouseEnabled="true">
-										<Anchor point="CENTER" relativePoint="CENTER" offsetX="-210" offsetY="0"/>
-										<Dimensions x="32" y="32" />
-										<Controls>
-											<Texture name="$(parent)TextureNormal" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_weapons_up.dds" resizeToFitFile="false">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TexturePressed" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_weapons_down.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TextureHighlight" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_weapons_over.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-										</Controls>
-										<OnMouseEnter>
-											MB.FilterEnter(self)
-										</OnMouseEnter>
-										<OnMouseExit>
-											MB.FilterExit(self)
-										</OnMouseExit>
-
-										<OnMouseUp>
-											MB.FilterClicked(self,"Weapon")
-										</OnMouseUp>
-									</Control>
-
-									<!-- Фильтр: Apparel -->
-									<Control name="$(parent)Apparel" mouseEnabled="true">
-										<Anchor point="CENTER" relativePoint="CENTER" offsetX="-170" offsetY="0"/>
-										<Dimensions x="32" y="32" />
-										<Controls>
-											<Texture name="$(parent)TextureNormal" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_armor_up.dds" resizeToFitFile="false">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TexturePressed" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_armor_down.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TextureHighlight" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_armor_over.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-										</Controls>
-										<OnMouseEnter>
-											MB.FilterEnter(self)
-										</OnMouseEnter>
-										<OnMouseExit>
-											MB.FilterExit(self)
-										</OnMouseExit>
-
-										<OnMouseUp>
-											MB.FilterClicked(self,"Apparel")
-										</OnMouseUp>
-									</Control>
-
-									<!-- Фильтр: Consumable -->
-									<Control name="$(parent)Consumable" mouseEnabled="true">
-										<Anchor point="CENTER" relativePoint="CENTER" offsetX="-130" offsetY="0"/>
-										<Dimensions x="32" y="32" />
-										<Controls>
-											<Texture name="$(parent)TextureNormal" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_consumables_up.dds" resizeToFitFile="false">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TexturePressed" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_consumables_down.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TextureHighlight" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_consumables_over.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-										</Controls>
-										<OnMouseEnter>
-											MB.FilterEnter(self)
-										</OnMouseEnter>
-										<OnMouseExit>
-											MB.FilterExit(self)
-										</OnMouseExit>
-
-										<OnMouseUp>
-											MB.FilterClicked(self,"Consumable")
-										</OnMouseUp>
-									</Control>
-
-									<!-- Фильтр: Materials -->
-									<Control name="$(parent)Materials" mouseEnabled="true">
-										<Anchor point="CENTER" relativePoint="CENTER" offsetX="-90" offsetY="0"/>
-										<Dimensions x="32" y="32" />
-										<Controls>
-											<Texture name="$(parent)TextureNormal" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_crafting_up.dds" resizeToFitFile="false">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TexturePressed" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_crafting_down.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TextureHighlight" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_crafting_over.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-										</Controls>
-										<OnMouseEnter>
-											MB.FilterEnter(self)
-										</OnMouseEnter>
-										<OnMouseExit>
-											MB.FilterExit(self)
-										</OnMouseExit>
-
-										<OnMouseUp>
-											MB.FilterClicked(self,"Materials")
-										</OnMouseUp>
-									</Control>
-
-									<!-- Фильтр: Miscellaceous -->
-									<Control name="$(parent)Miscellaceous" mouseEnabled="true">
-										<Anchor point="CENTER" relativePoint="CENTER" offsetX="-50" offsetY="0"/>
-										<Dimensions x="32" y="32" />
-										<Controls>
-											<Texture name="$(parent)TextureNormal" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_misc_up.dds" resizeToFitFile="false">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TexturePressed" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_misc_down.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TextureHighlight" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_misc_over.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-										</Controls>
-										<OnMouseEnter>
-											MB.FilterEnter(self)
-										</OnMouseEnter>
-										<OnMouseExit>
-											MB.FilterExit(self)
-										</OnMouseExit>
-
-										<OnMouseUp>
-											MB.FilterClicked(self,"Miscellaceous")
-										</OnMouseUp>
-									</Control>
-
-									<!-- Фильтр: Junk -->
-									<Control name="$(parent)Junk" mouseEnabled="true">
-										<Anchor point="CENTER" relativePoint="CENTER" offsetX="-10" offsetY="0"/>
-										<Dimensions x="32" y="32" />
-										<Controls>
-											<Texture name="$(parent)TextureNormal" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_junk_up.dds" resizeToFitFile="false">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TexturePressed" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_junk_down.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-											<Texture name="$(parent)TextureHighlight" textureFile="EsoUI/Art/Inventory/inventory_tabIcon_junk_over.dds" resizeToFitFile="false" alpha="0">
-												<Anchor point="CENTER" relativePoint="CENTER" offsetX="0" offsetY="0"/>
-												<Dimensions x="32" y="32" />
-											</Texture>
-										</Controls>
-										<OnMouseEnter>
-											MB.FilterEnter(self)
-										</OnMouseEnter>
-										<OnMouseExit>
-											MB.FilterExit(self)
-										</OnMouseExit>
-
-										<OnMouseUp>
-											MB.FilterClicked(self,"Junk")
-										</OnMouseUp>
-									</Control>
-								</Controls>
+									<!-- Filter: Consumable -->
+                  <Button name="$(parent)Consumable" inherits="MB_Virtual_FilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)Apparel" offsetX="40" offsetY="0"/>
+                    
+                    <Textures normal="EsoUI/Art/Inventory/inventory_tabIcon_consumables_up.dds"                          
+                              mouseOver="EsoUI/Art/Inventory/inventory_tabIcon_consumables_down.dds"
+                              pressed="EsoUI/Art/Inventory/inventory_tabIcon_consumables_down.dds"
+                              />
+                  </Button>                  
+                  
+									<!-- Filter: Materials -->
+                  <Button name="$(parent)Materials" inherits="MB_Virtual_FilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)Consumable" offsetX="40" offsetY="0"/>
+                    
+                    <Textures normal="EsoUI/Art/Inventory/inventory_tabIcon_crafting_up.dds"                          
+                              mouseOver="EsoUI/Art/Inventory/inventory_tabIcon_crafting_down.dds"
+                              pressed="EsoUI/Art/Inventory/inventory_tabIcon_crafting_down.dds"
+                              />
+                  </Button>                  
+									<!-- Filter: Miscellaceous -->
+                  <Button name="$(parent)Miscellaneous" inherits="MB_Virtual_FilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)Materials" offsetX="40" offsetY="0"/>
+                    
+                    <Textures normal="EsoUI/Art/Inventory/inventory_tabIcon_misc_up.dds"                          
+                              mouseOver="EsoUI/Art/Inventory/inventory_tabIcon_misc_down.dds"
+                              pressed="EsoUI/Art/Inventory/inventory_tabIcon_misc_down.dds"
+                              />
+                  </Button>                                    
+                  
+									<!-- Filter: Junk -->
+                  <Button name="$(parent)Junk" inherits="MB_Virtual_FilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)Miscellaneous" offsetX="40" offsetY="0"/>
+                    
+                    <Textures normal="EsoUI/Art/Inventory/inventory_tabIcon_junk_up.dds"                          
+                              mouseOver="EsoUI/Art/Inventory/inventory_tabIcon_junk_down.dds"
+                              pressed="EsoUI/Art/Inventory/inventory_tabIcon_junk_down.dds"
+                              />
+                  </Button>                                    
+                            
+                 	<!-- Filter: SubFilter1 -->
+                  <Button name="$(parent)SubFilter1" inherits="MB_Virtual_SubFilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)All" offsetX="0" offsetY="32"/>                    
+                  </Button>   
+                  <!-- Filter: SubFilter2 -->
+                  <Button name="$(parent)SubFilter2" inherits="MB_Virtual_SubFilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)SubFilter1" offsetX="40" offsetY="0"/>                    
+                  </Button>   
+                  <!-- Filter: SubFilter3 -->
+                  <Button name="$(parent)SubFilter3" inherits="MB_Virtual_SubFilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)SubFilter2" offsetX="40" offsetY="0"/>                    
+                  </Button>   
+                  <!-- Filter: SubFilter4 -->
+                  <Button name="$(parent)SubFilter4" inherits="MB_Virtual_SubFilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)SubFilter3" offsetX="40" offsetY="0"/>                    
+                  </Button>   
+                  <!-- Filter: SubFilter5 -->
+                  <Button name="$(parent)SubFilter5" inherits="MB_Virtual_SubFilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)SubFilter4" offsetX="40" offsetY="0"/>                    
+                  </Button>   
+                  <!-- Filter: SubFilter6 -->
+                  <Button name="$(parent)SubFilter6" inherits="MB_Virtual_SubFilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)SubFilter5" offsetX="40" offsetY="0"/>                    
+                  </Button>   
+                  <!-- Filter: SubFilter7 -->
+                  <Button name="$(parent)SubFilter7" inherits="MB_Virtual_SubFilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)SubFilter6" offsetX="40" offsetY="0"/>                    
+                  </Button>   
+                  <!-- Filter: SubFilter8 -->
+                  <Button name="$(parent)SubFilter8" inherits="MB_Virtual_SubFilterButton">
+                    <Anchor point="CENTER" relativePoint="CENTER" relativeTo="$(parent)SubFilter7" offsetX="40" offsetY="0"/>                    
+                  </Button>   
+                  
+                </Controls>
 							</Control>
+	
+							<Button name="$(parent)Name" inherits="MB_Virtual_SortButton" text="[Name]"> 
+								<Anchor point="TOP" relativePoint="LEFT" offsetX="-60" offsetY="110"/> 
+                <Dimensions x="60" y="20" />
+                <OnMouseUp>          
+                  MB_Util:SetSort(self)
+                </OnMouseUp>     
+                <OnMouseEnter>
+                  InitializeTooltip(InformationTooltip, self, TOPRIGHT)
+                  SetTooltipText(InformationTooltip, "Sort by Name")                                                        
+                </OnMouseEnter>
+							</Button>
 
-							<Label name="$(parent)Name" font="ZoFontGame" text="Name">
-								<Anchor point="TOP" relativePoint="LEFT" offsetX="-100" offsetY="35"/>
-							</Label>
+							<Button name="$(parent)Stat" inherits="MB_Virtual_SortButton" text="[Stat]">
+								<Anchor point="TOP" relativePoint="LEFT" offsetX="260" offsetY="110"/> 
+                <Dimensions x="60" y="20" />
+                <OnMouseUp>          
+                  MB_Util:SetSort(self)
+                </OnMouseUp>     
+                <OnMouseEnter>
+                  InitializeTooltip(InformationTooltip, self, TOPRIGHT)
+                  SetTooltipText(InformationTooltip, "Sort by Stat - This is Armor Value, Weapon Damage or weighted Level of Item")                                                        
+                </OnMouseEnter>
+							</Button>
 
-							<Label name="$(parent)Stat" font="ZoFontGame" text="Stat">
-								<Anchor point="TOP" relativePoint="CENTER" offsetX="130" offsetY="35"/>
-							</Label>
-
-							<Label name="$(parent)Value" font="ZoFontGame" text="Value">
-								<Anchor point="TOP" relativePoint="RIGHT" offsetX="155" offsetY="35"/>
-							</Label>
+							<Button name="$(parent)Value"  inherits="MB_Virtual_SortButton" text="[Value]">
+								<Anchor point="TOP" relativePoint="LEFT" offsetX="360" offsetY="110"/> 
+                <Dimensions x="60" y="20" />
+                <OnMouseUp>          
+                  MB_Util:SetSort(self)
+                </OnMouseUp>     
+                <OnMouseEnter>
+                  InitializeTooltip(InformationTooltip, self, TOPRIGHT)
+                  SetTooltipText(InformationTooltip, "Sort by Sell Value - might be 0 if not known")
+                </OnMouseEnter>								
+							</Button>
 						</Controls>
-					</Label>
+					</Control>
 
 					<!-- Счетчик вещей -->
 					<Label name="$(parent)ItemCounter" font="ZoFontGame" color="white">
@@ -368,18 +521,18 @@
 		</TopLevelControl>
 
 		<!-- Строка -->
-		<Control name="TemplateRow" virtual="true" mouseEnabled="true">
+		<Control name="MBUI_TemplateRow" virtual="true" mouseEnabled="true">
 
-            <OnMouseEnter>
-                MB.TooltipEnter(self)
-            </OnMouseEnter>
-            <OnMouseExit>
-                MB.TooltipExit(self)
-            </OnMouseExit>
+      <OnMouseEnter>
+          MB.TooltipEnter(self)
+      </OnMouseEnter>
+      <OnMouseExit>
+          MB.TooltipExit(self)
+      </OnMouseExit>
 
-            <OnMouseWheel>
-				MB.MoveScrollerWheel(self,delta)
-            </OnMouseWheel>
+      <OnMouseWheel>
+          MB.MoveScrollerWheel(self,delta)
+      </OnMouseWheel>
 
 			<Dimensions x="530" y="52" />
 			<Controls>
@@ -390,10 +543,10 @@
 				</Texture>
 
 				<!-- Подсветка -->
-                <Texture name="$(parent)Highlight" textureFile="EsoUI/Art/Miscellaneous/listItem_highlight.dds" alpha="0">
-                    <AnchorFill />
-                    <TextureCoords left="0" right="1" top="0" bottom=".625" />
-                </Texture>
+        <Texture name="$(parent)Highlight" textureFile="EsoUI/Art/Miscellaneous/listItem_highlight.dds" alpha="0">
+            <AnchorFill />
+            <TextureCoords left="0" right="1" top="0" bottom=".625" />
+        </Texture>
 
 				<!-- Кнопка -->
 				<Control name="$(parent)Button">
@@ -408,6 +561,11 @@
 							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" offsetX="0" offsetY="20"/>
 							<Dimensions x="38" y="35"/>
 						</Label>
+
+            <Label name="$(parent)Equipped" color="FFFF00" font="ZoFontGame" horizontalAlignment="RIGHT">
+							<Anchor point="TOPLEFT" relativePoint="TOPLEFT" offsetX="-16" offsetY="32"/>
+							<Dimensions x="38" y="35"/>
+						</Label>            
 					</Controls>
 				</Control>
 
